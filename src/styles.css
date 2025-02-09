@@ -1,0 +1,57 @@
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  :root {
+    --background-color: #191414; /* Dark Mode */
+    --text-color: #FFFFFF;
+    --primary-color: #1DB954; /* Spotify Green */
+    --hover-color: #1ed760;
+  }
+  
+  [data-theme="light"] {
+    --background-color: #FFFFFF; /* Light Mode */
+    --text-color: #191414;
+  }
+  
+  button {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    border: none;
+    padding: 1rem 2rem;
+    margin: 0.5rem;
+    font-size: 1rem;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: var(--hover-color);
+  }
+  
+  .progress-bar {
+    height: 10px;
+    background-color: var(--hover-color);
+    transition: width 0.5s ease;
+  }
+  
+  .card {
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 15px;
+    padding: 1rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+  }
+  
+  .card:hover {
+    transform: scale(1.05);
+  }
+  
+  .img-round {
+    border-radius: 50%;
+  }
