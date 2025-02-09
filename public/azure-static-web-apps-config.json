@@ -1,12 +1,9 @@
 {
     "routes": [
       {
-        "route": "/",
-        "serve": "/index.html"
-      },
-      {
-        "route": "/quiz",
-        "serve": "/index.html"
+        "route": "/*",
+        "serve": "/index.html",
+        "statusCode": 200
       }
     ],
     "platformErrorOverrides": [
@@ -17,3 +14,4 @@
       }
     ]
   }
+  
