@@ -1,1 +1,11 @@
+# Node modules and build outputs
 node_modules
+client/node_modules
+server/node_modules
+build
+
+# Local environment files
+.env
+
+# macOS
+.DS_Store
