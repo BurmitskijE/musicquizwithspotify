@@ -19,6 +19,12 @@ function ModeSelection() {
       >
         Errate den Titel
       </button>
+      <button
+        style={{ margin: '10px', padding: '10px 20px' }}
+        onClick={() => navigate('/genre')}
+      >
+        Titel nach Genre
+      </button>
     </div>
   );
 }

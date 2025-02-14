@@ -4,6 +4,7 @@ import Login from './components/Login';
 import ModeSelection from './components/ModeSelection';
 import QuizScreenArtist from './components/QuizScreenArtist';
 import QuizScreenTitle from './components/QuizScreenTitle';
+import QuizScreenGenre from './components/QuizScreenGenre';
 
 function App() {
   const [token, setToken] = useState(null);
@@ -28,6 +29,7 @@ function App() {
       <Route path="/" element={<ModeSelection />} />
       <Route path="/artist" element={<QuizScreenArtist token={token} />} />
       <Route path="/title" element={<QuizScreenTitle token={token} />} />
+      <Route path="/genre" element={<QuizScreenGenre token={token} />} />
     </Routes>
   );
 }
