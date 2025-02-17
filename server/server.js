@@ -14,13 +14,23 @@ app.use(cors());
 
 // Route zum Anmelden bei Spotify
 app.get('/login', (req, res) => {
-  const scope = 'user-top-read user-library-read';
+  const scopes = [
+    "streaming",
+    "user-read-email",
+    "user-read-private",
+    "user-top-read",
+    "user-library-read",
+    "user-read-playback-state",
+    "user-modify-playback-state",
+    "user-read-currently-playing"
+  ].join("%20");
+
   res.redirect(
     'https://accounts.spotify.com/authorize?' +
       querystring.stringify({
         response_type: 'code',
         client_id: CLIENT_ID,
-        scope: scope,
+        scope: scopes,
         redirect_uri: REDIRECT_URI
       })
   );

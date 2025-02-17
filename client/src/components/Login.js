@@ -7,7 +7,7 @@ function Login() {
   };
 
   return (
-    <div style={{ textAlign: 'center', marginTop: '50px' }}>
+    <div style={{ textAlign: 'center', marginTop: '0px' }}>
       <h1>Music Quiz</h1>
       <button onClick={handleLogin}>Mit Spotify anmelden</button>
     </div>

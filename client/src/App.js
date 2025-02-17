@@ -9,16 +9,19 @@ import QuizScreenGenre from './components/QuizScreenGenre';
 function App() {
   const [token, setToken] = useState(null);
 
-  useEffect(() => {
-    // Token aus den URL-Parametern extrahieren
-    const params = new URLSearchParams(window.location.search);
-    const accessToken = params.get('access_token');
-    if (accessToken) {
-      setToken(accessToken);
-      // URL bereinigen
-      window.history.replaceState({}, document.title, '/');
-    }
-  }, []);
+  // In Ihrer App.js oder einer ähnlichen Komponente
+useEffect(() => {
+  const params = new URLSearchParams(window.location.search);
+  const access_token = params.get('access_token');
+  if (access_token) {
+    console.log("Token received:", access_token);
+    // Speichern Sie den Token im State oder localStorage
+    setToken(access_token);
+    // Entfernen Sie die Token-Parameter aus der URL
+    window.history.replaceState({}, document.title, "/");
+  }
+}, []);
+
 
   if (!token) {
     return <Login />;
