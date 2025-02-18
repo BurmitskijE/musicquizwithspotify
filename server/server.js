@@ -15,21 +15,57 @@ app.use(cors());
 const apiRouter = require('./src/api');
 
 // Route zum Anmelden bei Spotify
-app.get('/login', (req, res) => {
-  const scope = 'user-top-read user-library-read';
-  res.redirect(
-    'https://accounts.spotify.com/authorize?' +
+app.get("/login", (req, res) => {
+  const scope = "user-read-private user-read-email";
+  const authUrl = "https://accounts.spotify.com/authorize?" +
       querystring.stringify({
-        response_type: 'code',
-        client_id: CLIENT_ID,
-        scope: scope,
-        redirect_uri: REDIRECT_URI
-      })
-  );
+          response_type: "code",
+          client_id: CLIENT_ID,
+          scope: scope,
+          redirect_uri: REDIRECT_URI,
+      });
+
+  res.redirect(authUrl);
 });
 
-app.use('/api', apiRouter);
+app.get("/callback", async (req, res) => {
+  const code = req.query.code || null;
 
-app.listen(PORT, () => {
-  console.log(`Server läuft auf Port ${PORT}`);
+  if (!code) {
+      return res.redirect("/?error=login_failed");
+  }
+
+  try {
+      const response = await axios.post("https://accounts.spotify.com/api/token",
+          querystring.stringify({
+              code: code,
+              redirect_uri: REDIRECT_URI,
+              grant_type: "authorization_code",
+          }), {
+              headers: {
+                  "Content-Type": "application/x-www-form-urlencoded",
+                  "Authorization": "Basic " + Buffer.from(CLIENT_ID + ":" + CLIENT_SECRET).toString("base64"),
+              },
+          }
+      );
+
+      const accessToken = response.data.access_token;
+
+      if (accessToken) {
+          // Falls eine Session oder ein Speicher genutzt wird:
+          req.session.access_token = accessToken;
+
+          // KORREKTE WEITERLEITUNG:
+          res.redirect("/modeSelection.html");
+      } else {
+          res.redirect("/?error=invalid_token");
+      }
+  } catch (error) {
+      console.error("Fehler beim Abrufen des Tokens:", error);
+      res.redirect("/?error=server_error");
+  }
+});
+
+app.listen(port, () => {
+  console.log(`Server läuft auf http://localhost:${port}`);
 });
