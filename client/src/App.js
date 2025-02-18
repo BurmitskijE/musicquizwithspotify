@@ -1,39 +1,41 @@
 import React, { useEffect, useState } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from './components/Login';
 import ModeSelection from './components/ModeSelection';
 import QuizScreenArtist from './components/QuizScreenArtist';
 import QuizScreenTitle from './components/QuizScreenTitle';
 import QuizScreenGenre from './components/QuizScreenGenre';
+import Callback from './components/Callback';
 
 function App() {
   const [token, setToken] = useState(null);
 
-  // In Ihrer App.js oder einer ähnlichen Komponente
-useEffect(() => {
-  const params = new URLSearchParams(window.location.search);
-  const access_token = params.get('access_token');
-  if (access_token) {
-    console.log("Token received:", access_token);
-    // Speichern Sie den Token im State oder localStorage
-    setToken(access_token);
-    // Entfernen Sie die Token-Parameter aus der URL
-    window.history.replaceState({}, document.title, "/");
-  }
-}, []);
-
+  useEffect(() => {
+    // Token aus den URL-Parametern extrahieren
+    const params = new URLSearchParams(window.location.search);
+    const accessToken = params.get('access_token');
+    if (accessToken) {
+      setToken(accessToken);
+      // Redirect to ModeSelection
+      window.history.replaceState({}, document.title, '/');
+    }
+  }, []);
 
   if (!token) {
     return <Login />;
   }
 
   return (
-    <Routes>
-      <Route path="/" element={<ModeSelection />} />
-      <Route path="/artist" element={<QuizScreenArtist token={token} />} />
-      <Route path="/title" element={<QuizScreenTitle token={token} />} />
-      <Route path="/genre" element={<QuizScreenGenre token={token} />} />
-    </Routes>
+    <Router>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/callback" element={<Callback />} />
+        <Route path="/" element={<ModeSelection />} />
+        <Route path="/artist" element={<QuizScreenArtist token={token} />} />
+        <Route path="/title" element={<QuizScreenTitle token={token} />} />
+        <Route path="/genre" element={<QuizScreenGenre token={token} />} />
+      </Routes>
+    </Router>
   );
 }
 

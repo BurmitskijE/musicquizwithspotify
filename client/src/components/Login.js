@@ -1,17 +1,20 @@
 import React from 'react';
 
-function Login() {
-  const handleLogin = () => {
-    // Weiterleitung an den Backend-Endpoint, der die Spotify OAuth-Authentifizierung übernimmt
-    window.location.href = 'http://localhost:5000/login';
+const Login = () => {
+  const handleLogin = async () => {
+    try {
+      window.location.href = 'http://localhost:5000/login';
+    } catch (error) {
+      console.error('Error during login:', error);
+    }
   };
 
   return (
-    <div style={{ textAlign: 'center', marginTop: '0px' }}>
-      <h1>Music Quiz</h1>
-      <button onClick={handleLogin}>Mit Spotify anmelden</button>
+    <div>
+      <h1>Login with Spotify</h1>
+      <button onClick={handleLogin}>Login</button>
     </div>
   );
-}
+};
 
 export default Login;

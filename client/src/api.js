@@ -34,3 +34,8 @@ export const getSpotifyGenres = async (token) => {
     throw error;
   }
 };
+
+export const getSpotifyToken = async (code) => {
+  const response = await axios.post('/api/token', { code });
+  return response.data;
+};
